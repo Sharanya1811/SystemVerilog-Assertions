@@ -1,0 +1,8 @@
+Ensure that whenever req is asserted, ack must be asserted within 3 to 6 cycles.
+ANS::
+   property bounded_delay;
+   @(posedge clock) disable iff(reset)
+       req |-> ##[3:6] ack;
+   endproperty
+
+   assert property(bounded_delay);
