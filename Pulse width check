@@ -1,0 +1,6 @@
+Write an assertion to ensure that a signal sig stays high for exactly 4 cycles before going low.
+Ans::
+   property pulse_width_check;
+   @(posedge clock)  disable iff(reset)
+      (sig==1)[*4];
+   endproperty
