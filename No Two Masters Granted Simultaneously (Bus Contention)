@@ -1,0 +1,11 @@
+Ensure that no two masters are granted the bus at the same time in a multi-master system.
+Assume grant[i] is an array of grant signals for N masters.
+
+Ans::
+
+   property no_grant;
+    @(posedge clock) disable iff(reset)
+     !($onehot0(grant));
+   endproperty
+
+   assert property (no_grant); 
