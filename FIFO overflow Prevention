@@ -1,0 +1,12 @@
+Write an assertion to ensure that a FIFO never writes when full. Assume:
+
+wr_en is the write enable signal.
+full is the full flag.
+
+Ans:: 
+     property fifo_over_prevention;
+     @(posedge clock) disable iff(reset)
+       (full==1) |-> (wr_en==0)
+     endproperty
+
+     assertion (fifo_over_prevention) $display("Fifo over prevention is PASSED") else $display("Fifo over prevention is FAILED")
