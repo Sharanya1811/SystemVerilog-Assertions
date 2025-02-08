@@ -1,0 +1,7 @@
+Ensure that a pipeline never stalls for more than 10 cycles without forward progress (e.g., valid data must move forward).
+ANS::
+   property deadlock_detection;
+   endproperty
+
+
+  assert property (deadlock_detection);
