@@ -1,0 +1,13 @@
+A packet transmission (pkt_valid) must be followed by a checksum validation (checksum_valid).
+If pkt_valid is asserted but checksum_valid doesn’t arrive within 4 to 8 cycles, it’s an error.
+
+✅ Write an assertion to enforce this timing requirement.
+
+ANS::
+
+    property checksum;
+    @(posedge clock) disable iff(reset)
+     pkt_valid |-> ##[4:8] checksum_valid;
+    endproperty
+
+   assert property (checksum);
