@@ -5,4 +5,4 @@ Ans::
       (sig==1)[*4];
    endproperty
 
-   assertion property (pulse_width_check);
+   assert property (pulse_width_check);
