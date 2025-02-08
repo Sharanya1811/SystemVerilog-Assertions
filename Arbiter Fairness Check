@@ -1,0 +1,13 @@
+Ensure that a round-robin arbiter grants access fairly:
+
+If reqA is high but grantA is not given, then grantA must be given within the next 5 cycles if reqA is still high.
+Same condition applies for reqB.
+
+Ans:
+
+    property arbiter_fairness_check;
+    @(posedge clock)  disable iff(reset)
+       (reqA ==1  && grantA==0) |-> #[1:5] grantA && (reqA==1) ;
+    endproperty
+
+   assert property(arbiter_fairness_check);
