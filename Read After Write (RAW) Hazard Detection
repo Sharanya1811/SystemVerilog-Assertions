@@ -1,0 +1,13 @@
+Ensure that a read operation does not happen immediately after a write to the same address in a dual-port RAM.
+Assume:
+
+wr_en, rd_en control write and read operations.
+wr_addr, rd_addr specify the addresses
+
+ANS::
+    property RAW_Hazard;
+    @(posedge clock) disable iff(reset)
+     (wr_en==1) && (rd_en==0) |=> ((rd_en==1) && (rd_addr!= $past(wr_addr)));
+    endproperty
+
+    assert property (RAW_Hazard);
