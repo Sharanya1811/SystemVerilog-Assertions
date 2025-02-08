@@ -1,6 +1,8 @@
 Ensure that a pipeline never stalls for more than 10 cycles without forward progress (e.g., valid data must move forward).
 ANS::
    property deadlock_detection;
+        @(posedge clock) disable iff(reset)
+         valid |-> ##[1:10](valid && ready)
    endproperty
 
 
