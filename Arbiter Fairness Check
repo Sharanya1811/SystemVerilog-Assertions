@@ -5,9 +5,22 @@ Same condition applies for reqB.
 
 Ans:
 
-    property arbiter_fairness_check;
+    property arbiter_fairness_checkA;
     @(posedge clock)  disable iff(reset)
-       (reqA ==1  && grantA==0) |-> #[1:5] grantA && (reqA==1) ;
+       (reqA ==1  && grantA==0) |-> ##[1:5] grantA && (reqA==1) ;
     endproperty
 
-   assert property(arbiter_fairness_check);
+   assert property(arbiter_fairness_checkA);
+
+
+   sequence  seqB;
+    ##[1:5] grantB;
+   endsequence
+
+    property arbiter_fairness_checkB;
+    @(posedge clock)  disable iff(reset)
+       (reqB ==1  && grantB==0) |-> reqA throughout seqB ;
+    endproperty
+
+   assert property(arbiter_fairness_checkB);
+   
