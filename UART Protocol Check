@@ -1,0 +1,11 @@
+Ensure that a UART start bit (0) is followed by exactly 8 data bits, a stop bit (1), and an idle period before the next start bit.
+
+ANS::
+
+    property UART_Check;
+    @(posedge clock) disable iff(reset)
+       (start_bit==0)|=> data[*8] ##1 (stop_bit==1) ##1 (idle==1);
+    endproperty
+
+
+    assert property (UART_Check);
