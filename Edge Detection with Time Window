@@ -1,0 +1,9 @@
+Ensure that a rising edge of signal sig must be followed by a falling edge within 4 to 8 cycles.
+ANS::
+
+   property  edge_detection;
+   @(posedge clock)  disable iff(reset)
+     $rose(sig) |-> ##[4:8] $fell(sig);
+   endproperty
+
+  assert property (edge_detection);
