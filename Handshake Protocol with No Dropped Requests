@@ -1,0 +1,10 @@
+Ensure that every req is acknowledged before a new req is asserted again
+ANS:
+
+    property handshake;
+     @(posedge clock) disable iff(reset)
+       req |-> req until_with ack;
+    endproperty
+
+    assert property(handshake);
+
