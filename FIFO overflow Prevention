@@ -9,4 +9,4 @@ Ans::
        (full==1) |-> (wr_en==0)
      endproperty
 
-     assertion (fifo_over_prevention) $display("Fifo over prevention is PASSED") else $display("Fifo over prevention is FAILED")
+     assertion property (fifo_over_prevention) $display("Fifo over prevention is PASSED") else $display("Fifo over prevention is FAILED")
