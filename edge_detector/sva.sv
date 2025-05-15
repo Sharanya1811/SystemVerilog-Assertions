@@ -1,4 +1,4 @@
-module edge_detector_assertions(input logic clk, rst, signal_in,edge_out);
+module edge_detector_assertions(input logic clk, rst, signal_in,output logic edge_out);
  
 
   //PROBLEM 1: Assert that edge_out is high only for one cycle per rising edge of signal_in
