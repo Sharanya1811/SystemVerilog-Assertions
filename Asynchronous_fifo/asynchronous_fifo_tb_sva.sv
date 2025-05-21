@@ -126,18 +126,17 @@ module tb_sync_fifo;
    
    
    
-      //PROBLEM 9:  Illegal: wr_en and rd_en both high when FIFO is full or empty respectively
-
+     //PROBLEM 9:when wr_en and rd_en both high FIFO is not full or empty 
   
  property enables_when_full_or_empty;
    @(posedge clk) disable iff(rst)
-   wr_en && rd_en |-> full || empty;
+   wr_en && rd_en |-> !full || !empty;
  endproperty
-  
+ 
   PROBLEM9: assert property(enables_when_full_or_empty)
-    $error("error rd_en and wr_en are high when full or empty high");
+    $display("rd_en and wr_en are high fido is neither full nor empty");
            else
-             $display("counter is reloaded when timer is started");
+             $error("fifo is full or empty when enables are high");
  
   //PROBLEM 10:Reset (rst) must cause empty to assert
   
