@@ -26,14 +26,14 @@ module rr_arbiter_tb;
            else
              $error("more grants for one request");
    
-    //PROBLEM 2: Assert that at any time, only one grant is high, or all are zero no requests
+    //PROBLEM 2: No grant when no requests
   
   property one_hot_grant;
     @(posedge clk) disable iff(!reset)
     !req |=> (grant==0);
  endproperty
   
-  PROBLEM1: assert property(one_hot_grant)
+  PROBLEM2: assert property(one_hot_grant)
     $display("no grant when no request");
            else
              $error("grant when no request");
@@ -41,8 +41,6 @@ module rr_arbiter_tb;
 
 
  //PROBLEM 3: On reset (rst_n == 0), the grant output should be zero.
-
-
 
   property reset_state;
    @(posedge clk) 
@@ -55,8 +53,6 @@ module rr_arbiter_tb;
              $error("check the grants when rest");
  
    //PROBLEM 4: Assert that grant[i] & grant[j] == 0 for i ≠ j in the same cycle.
-
-
 
    genvar i;
 generate
@@ -73,7 +69,7 @@ endgenerate
     
  
   
-  //PROBLEM 4: Assert that a granted signal must have had a corresponding request.
+  //PROBLEM 5: Assert that a granted signal must have had a corresponding request.
 
     genvar i;
    generate
@@ -88,13 +84,13 @@ endgenerate
      end
    endgenerate
    
-   //PROBLEM 5: If all req[i] are held high continuously, the arbiter should cycle grants across all
+             //PROBLEM 6: If all req[i] are held high continuously, the arbiter should cycle grants across all requests
     property all_process_request;
       @(posedge clk) disable iff(!reset)
       req==4'b1111 |=> $onehot(grant) ##1  $onehot(grant)##1 $onehot(grant) ##1 $onehot(grant);
  endproperty
   
-  PROBLEM5: assert property(all_process_request)
+  PROBLEM6: assert property(all_process_request)
     $display("only one grant for all the requests");
            else
              $error("more grants when all the request simultaneously");
